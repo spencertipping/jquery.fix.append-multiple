@@ -1,0 +1,15 @@
+JQuery append() array fix | Spencer Tipping
+Licensed under the terms of the MIT source code license
+
+Motivation.
+jQuery's default append() implementation fails to accept a JavaScript array. This fix extends append() to take multiple arguments and allow arbitrarily nested arrays.
+
+(function ($) {
+  var old_append = $.fn.append;
+  
+  $.fn.append = function () {
+    for (var i = 0, l = arguments.length; i < l; ++i)
+      (arguments[i].constructor === Array ? this.append : old_append).apply(this, arguments[i]);
+    return this;
+  };
+})(jQuery);
