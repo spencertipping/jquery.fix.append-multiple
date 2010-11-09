@@ -9,7 +9,7 @@
   
   $.fn.append = function () {
     for (var i = 0, l = arguments.length; i < l; ++i)
-      (arguments[i].constructor === Array ? this.append : old_append).apply(this, arguments[i]);
+      arguments[i].constructor === Array ? this.append.apply(this, arguments[i]) : old_append.call(this, arguments[i]);
     return this;
   };
 })(jQuery);
