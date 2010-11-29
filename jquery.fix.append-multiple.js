@@ -10,9 +10,12 @@
     var old_method = $.fn[method_name];
 
     $.fn[method_name] = function () {
-      for (var i = 0, l = arguments.length, x; x = arguments[i], i < l; ++i)
+      for (var i = 0, l = arguments.length, x, xs; x = arguments[i], i < l; ++i)
         if (x !== null && x !== undefined)
-          ! x.length || x.constructor === String ? old_method.call(this, x) : this[method_name].apply(this, x.constructor === Array ? x : Array.prototype.slice.call(x));
+          if (x.length && x.constructor !== String && (xs = Array.prototype.slice.call).length === x.length)
+            this[method_name].apply(this, xs);
+          else
+            old_method.call(this, x);
       return this;
     };
   };
