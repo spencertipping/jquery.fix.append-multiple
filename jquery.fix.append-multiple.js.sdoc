@@ -12,7 +12,7 @@ prepend(), before(), and after().) Anything that looks like an array (i.e. has a
     $.fn[method_name] = function () {
       for (var i = 0, l = arguments.length, x, xs; x = arguments[i], i < l; ++i)
         if (x !== null && x !== undefined)
-          if (x.length && x.constructor !== String && (xs = Array.prototype.slice.call).length === x.length)
+          if (x.length && x.constructor !== String && (xs = Array.prototype.slice.call(x)).length === x.length)
             this[method_name].apply(this, xs);
           else
             old_method.call(this, x);
